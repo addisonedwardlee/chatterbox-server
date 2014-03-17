@@ -1,0 +1,205 @@
+/* Blody & global styles */
+
+body {
+    background: #eee;
+    text-align: center;
+    padding: 0 25px;
+    font-family: arial, sans-serif;
+}
+
+/* Structural styling */
+
+#main {
+    width: 700px;
+    margin: auto;
+    text-align: left;
+    background: white;
+    padding: 50px 60px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+}
+
+#main h1 {
+    margin-top: 0;
+    font-size: 35px;
+    margin-bottom: 5px;
+    padding: 5px;
+    padding-left: 0;
+}
+
+#main h1 span {
+    font-style:italic;
+}
+
+#main ul {
+    padding-left: 0;
+}
+
+#main .error {
+    border: 1px solid red;
+    background: #FDEFF0;
+    padding: 20px;
+}
+
+#main .success {
+    margin-top: 25px;
+}
+
+#main .success code {
+    font-size: 12px;
+    color: green;
+    line-height: 13px;
+}
+
+#left {
+    float: left;
+    width: 500px;
+}
+
+#right {
+    float: left;
+    margin-left: 40px;
+}
+
+form {
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+form input[type=text] {
+    margin-right: 10px;
+    width: 70%;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.chat {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.chat .username {
+    font-weight: 800;
+}
+
+.chat:hover {
+    background-color: #ddd;
+}
+
+.spinner {
+    float: right;
+    height: 46px;
+    margin-bottom: 5px;
+}
+
+.spinner img {
+    padding: 10px;
+}
+
+/* Chat form styling */
+
+div#chat-form input[type='text'] {
+    width: 482px;
+}
+
+#chat-form {
+    width:500px;
+}
+
+div#chat-form input[type='button'] {
+    float: right;
+}
+
+div#chat-form .your-name {
+    font-size: 12px;
+}
+
+#room {
+    font-size: 12px;
+    width: 500px;
+}
+
+#newRoom {
+    float: right;
+    margin: 5px 5px 0 0;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Message styling */
+
+div.message .userId {
+    display: block;
+    margin-bottom:4px;
+}
+
+div.message .messageText {
+    font-size: 14px;
+    word-break: break-all;
+}
+
+div.message {
+    padding: 10px;
+    font-size: 12px;
+}
+
+div.message:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+
+abbr.time {
+    display: block;
+    font-size: 10px;
+    text-align:right;
+    height: 14px;
+    margin-top:4px;
+}
+
+span.userId {
+    cursor: pointer;
+}
+
+span.userId span.newFriend {
+    margin-top: 3px;
+    margin-right: 5px;
+    padding: 0 3px;
+    border-radius: 3px;
+    background-color: #fff;
+    border: solid #4d4d4d 1px;
+    font-size: 12px;
+}
+
+.friends {
+    list-style-type: none;
+    font-size: 12px;
+}
+
+.friends li {
+    margin-bottom: 12px;
+}
+
+.friends li span.last-room {
+    font-size: 10px;
+    margin-bottom: 3px;
+    display: block;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
