@@ -51,11 +51,11 @@ app.fetch = function() {
     type: 'GET',
     dataType: 'json',
     data: {
-    //   order: '-createdAt',
-    //   limit: 30,
-    //   where: {
-    //     roomname: app.chatrooms.currentRoom === '-- Select a room! --' ? undefined : app.chatrooms.currentRoom
-    //   }
+      order: '-createdAt',
+      limit: 30,
+      where: {
+        roomname: app.chatrooms.currentRoom === '-- Select a room! --' ? undefined : app.chatrooms.currentRoom
+      }
     },
     success: function(data) {
       console.log(data);

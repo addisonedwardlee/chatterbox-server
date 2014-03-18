@@ -4,7 +4,8 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
-var allMessages = [{username: "John", message: "Billy???"}];
+var allMessages = [];
+var url = require("url");
 
 exports.handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -21,6 +22,7 @@ exports.handler = function(request, response) {
     case "GET" :
       statusCode = 200;
       output.results = allMessages;
+      console.log(url.parse(request.url));
       console.log(output);
       break;
     case "POST" :
@@ -30,7 +32,9 @@ exports.handler = function(request, response) {
         message += chunk;
       });
       request.on("end", function(){
-        allMessages.push(JSON.parse(message));
+        var temp = JSON.parse(message);
+        temp.createdAt = +new Date();
+        allMessages.push(temp);
         console.log(allMessages);
       });
       break;
