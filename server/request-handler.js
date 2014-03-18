@@ -4,6 +4,7 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
+var allMessages = [];
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -11,12 +12,41 @@ exports.handleRequest = function(request, response) {
 
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
-
   console.log("Serving request type " + request.method + " for url " + request.url, request.host, request.protocol);
+  var output = {"results" : []};
 
-  var statusCode = 200;
+  var statusCode;
 
-
+  switch (request.method) {
+    case "GET" :
+      statusCode = 200;
+      // var message = "";
+      // request.on("options", function(chunk){
+      //   message += chunk;
+      // });
+      // request.on("end", function(){
+      //   console.log("MESSAGE: " + message);
+      //   allMessages.forEach(function(msg) {
+      //     if(msg.username === message.username) {
+      //       output.results.push(msg);
+      //     }
+      //   });
+      // });
+      output.results = allMessages;
+      console.log(output);
+      break;
+    case "POST" :
+      statusCode = 201;
+      var message = "";
+      request.on("data", function(chunk){
+        message += chunk;
+      });
+      request.on("end", function(){
+        allMessages.push(JSON.parse(message));
+        console.log(allMessages);
+      });
+      break;
+  }
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
@@ -31,7 +61,7 @@ exports.handleRequest = function(request, response) {
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
-  response.end(JSON.stringify({"results" : ["Hello, World!"]}));
+  response.end(JSON.stringify(output));
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
