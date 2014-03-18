@@ -4,34 +4,22 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
-var allMessages = [];
+var allMessages = [{username: "John", message: "Billy???"}];
 
-exports.handleRequest = function(request, response) {
+exports.handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
 
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
-  console.log("Serving request type " + request.method + " for url " + request.url, request.host, request.protocol);
-  var output = {"results" : []};
+  console.log("Serving request type " + request.method + " for url " + request.url);
+  var output = {results : []};
 
   var statusCode;
 
   switch (request.method) {
     case "GET" :
       statusCode = 200;
-      // var message = "";
-      // request.on("options", function(chunk){
-      //   message += chunk;
-      // });
-      // request.on("end", function(){
-      //   console.log("MESSAGE: " + message);
-      //   allMessages.forEach(function(msg) {
-      //     if(msg.username === message.username) {
-      //       output.results.push(msg);
-      //     }
-      //   });
-      // });
       output.results = allMessages;
       console.log(output);
       break;
@@ -46,13 +34,21 @@ exports.handleRequest = function(request, response) {
         console.log(allMessages);
       });
       break;
+    case "OPTIONS" :
+      statusCode = 200;
+      output = null;
+      break;
   }
+
+  // if(request.url.indexOf("/classes") === -1){
+  //   statusCode = 404;
+  // }
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
   var headers = defaultCorsHeaders;
 
-  headers['Content-Type'] = "text/plain";
+  headers["Content-Type"] = "text/plain";
 
   /* .writeHead() tells our server what HTTP status code to send back */
   response.writeHead(statusCode, headers);

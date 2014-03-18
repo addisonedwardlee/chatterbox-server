@@ -31,7 +31,7 @@ app.username = app.getURLParameter('username');
 app.send = function (message) {
   $.ajax({
     // always use this url
-    url: 'http://127.0.0.1:3000/classes/chatterbox',
+    url: 'http://127.0.0.1:3000',
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
@@ -47,15 +47,15 @@ app.send = function (message) {
 
 app.fetch = function() {
   $.ajax({
-    url: 'http://127.0.0.1:3000/classes/chatterbox',
+    url: 'http://127.0.0.1:3000',
     type: 'GET',
     dataType: 'json',
     data: {
-      order: '-createdAt',
-      limit: 30,
-      where: {
-        roomname: app.chatrooms.currentRoom === '-- Select a room! --' ? undefined : app.chatrooms.currentRoom
-      }
+    //   order: '-createdAt',
+    //   limit: 30,
+    //   where: {
+    //     roomname: app.chatrooms.currentRoom === '-- Select a room! --' ? undefined : app.chatrooms.currentRoom
+    //   }
     },
     success: function(data) {
       console.log(data);
