@@ -34,7 +34,7 @@ exports.handler = function(request, response) {
       request.on("end", function(){
         var temp = JSON.parse(message);
         temp.createdAt = +new Date();
-        allMessages.push(temp);
+        allMessages.unshift(temp);
         console.log(allMessages);
       });
       break;

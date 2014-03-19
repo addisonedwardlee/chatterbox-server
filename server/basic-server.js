@@ -1,37 +1,44 @@
-/* Import node's http module: */
 var http = require("http");
 var url = require("url");
-var requestHandler = require("./request-handler.js");
+var express = require("express");
+var bodyParser = require("body-parser");
+// var requestHandler = require("./request-handler.js")
+var app = express();
 
-
-/* Every server needs to listen on a port with a unique number. The
- * standard port for HTTP servers is port 80, but that port is
- * normally already claimed by another server and/or not accessible
- * so we'll use a higher port number that is not likely to be taken: */
 var port = 3000;
-
-/* For now, since you're running this server on your local machine,
- * we'll have it listen on the IP address 127.0.0.1, which is a
- * special address that always refers to localhost. */
 var ip = "127.0.0.1";
 
-// url.pathname = "/classes/chatterbox";
+var corsHeaders = function(req, res, next){
+  res.header("access-control-allow-origin", "*");
+  res.header("access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("access-control-allow-headers", "content-type, accept");
+  res.header("access-control-max-age", 10);
+  if(res.method === "OPTIONS") {res.send(200)};
+  next();
+};
 
-/* We use node's http module to create a server. Note, we called it 'server', but
-we could have called it anything (myServer, blahblah, etc.). The function we pass it (handleRequest)
-will, unsurprisingly, handle all incoming requests. (ps: 'handleRequest' is in the 'request-handler' file).
-Lastly, we tell the server we made to listen on the given port and IP. */
-var server = http.createServer(requestHandler.handler);
-console.log("Listening on http://" + ip + ":" + port);
-server.listen(port, ip);
+app.use(corsHeaders);
+app.use(bodyParser());
 
-/* To start this server, run:
-     node basic-server.js
- *  on the command line.
+var server = app.listen(3000, ip, function() {
+  console.log("listening to ", server.address());
+});
 
- * To connect to the server, load http://127.0.0.1:8080 in your web
- * browser.
+var allMessages = [];
 
- * server.listen() will continue running as long as there is the
- * possibility of serving more requests. To stop your server, hit
- * Ctrl-C on the command line. */
+app.get("/*", function(req, res) {
+  var output = {results : []};
+  output.results = allMessages;
+  res.send(output);
+});
+
+app.post("/*", function(req, res) {
+  req.body.createdAt = +new Date();
+  allMessages.unshift(req.body);
+  res.send(201);
+});
+
+
+
+
+
